@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register — AI Odyssey 2026</title>
+  <meta name="description" content="Register your team for AI Odyssey 2026 — An AI Workflow Championship." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+</head>
+<body>
+
+  <!-- ===== BACKGROUND EFFECTS ===== -->
+  <div class="bg-effects">
+    <canvas id="grid-canvas" class="grid-canvas"></canvas>
+    <canvas id="neural-canvas" class="neural-canvas"></canvas>
+    <canvas id="particles-canvas" class="particles-canvas"></canvas>
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="glow-orb glow-orb-3"></div>
+    <div class="mouse-glow" id="mouse-glow"></div>
+  </div>
+
+  <!-- ===== NAVIGATION ===== -->
+  <header class="navbar" id="navbar">
+    <nav class="nav-container">
+      <a href="index.html" class="logo">
+        <span class="logo-icon">◈</span>
+        <span class="logo-text">AI&nbsp;Odyssey</span>
+      </a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html#home" class="nav-link">Home</a></li>
+        <li><a href="index.html#about" class="nav-link">About</a></li>
+        <li><a href="index.html#rounds" class="nav-link">Rounds</a></li>
+        <li><a href="index.html#outcomes" class="nav-link">Outcomes</a></li>
+        <li><a href="index.html#entry" class="nav-link">Entry</a></li>
+        <li><a href="index.html#judging" class="nav-link">Judging</a></li>
+        <li><a href="index.html#schedule" class="nav-link">Schedule</a></li>
+        <li><a href="index.html#faq" class="nav-link">FAQ</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="register.html" class="btn btn-primary btn-sm nav-register">Register</a>
+        <button class="hamburger" id="hamburger" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ===== MOBILE NAVIGATION ===== -->
+  <div class="mobile-menu" id="mobile-menu">
+    <ul class="mobile-links">
+      <li><a href="index.html#home" class="mobile-link">Home</a></li>
+      <li><a href="index.html#about" class="mobile-link">About</a></li>
+      <li><a href="index.html#rounds" class="mobile-link">Rounds</a></li>
+      <li><a href="index.html#outcomes" class="mobile-link">Outcomes</a></li>
+      <li><a href="index.html#entry" class="mobile-link">Entry</a></li>
+      <li><a href="index.html#judging" class="mobile-link">Judging</a></li>
+      <li><a href="index.html#schedule" class="mobile-link">Schedule</a></li>
+      <li><a href="index.html#faq" class="mobile-link">FAQ</a></li>
+      <li><a href="register.html" class="mobile-link">Register</a></li>
+    </ul>
+  </div>
+
+<!-- ===== REGISTER PAGE HEADER ===== -->
+  <section class="section register-hero" style="padding-bottom:0;">
+    <div class="container" style="text-align:center;">
+      <div class="hero-present reveal">
+        <div class="present-inner">
+          <span class="present-spark">✦</span>
+          <span class="present-line"></span>
+          <span class="present-brand">
+            <span class="present-name">Technitix</span>
+            <span class="present-label">Proudly Presents</span>
+          </span>
+          <span class="present-line"></span>
+          <span class="present-spark">✦</span>
+        </div>
+      </div>
+      <h1 class="hero-title reveal" style="margin-bottom:10px;">
+        <span class="title-line">AI</span>
+        <span class="title-line gradient-text">ODYSSEY</span>
+      </h1>
+      <p class="hero-tagline reveal" style="margin-bottom:8px;">Team Registration</p>
+      <p class="section-sub" style="color:var(--text-2);max-width:640px;margin:0 auto 28px;">
+        Register your team or reach out with questions. Limited to ~40 teams — secure your spot today.
+      </p>
+      <div class="hero-cta reveal" style="justify-content:center;">
+        <a href="index.html" class="btn btn-outline btn-lg">← Back to Home</a>
+      </div>
+    </div>
+  </section>
+
+<!-- ===== REGISTRATION FORM ===== -->
+  <section class="section page-register" style="padding-top:0;">
+    <div class="container">
+      <div class="reg-wrap reveal">
+        <div class="reg-form-col">
+          <form class="contact-form reg-form" id="contact-form" enctype="multipart/form-data">
+            <h3 class="reg-col-title">Team Registration</h3>
+            <p class="reg-col-sub">Fields marked <span class="req-star">*</span> are required.</p>
+
+            <!-- Team Information -->
+            <div class="reg-section">
+              <h4 class="reg-section-title">1 · Team Information</h4>
+              <div class="form-row">
+                <input type="text" name="team" placeholder="Team Name *" required />
+                <input type="tel" name="phone" placeholder="Contact Number *" required />
+              </div>
+              <div class="form-row">
+                <input type="email" name="email" placeholder="Email Address *" required />
+              </div>
+            </div>
+
+            <!-- Student Entries -->
+            <div class="reg-section" id="students-section">
+              <h4 class="reg-section-title">2 · Student Details</h4>
+
+              <!-- Student 1 -->
+              <div class="student-entry">
+                <div class="student-head"><span class="student-badge">Student 1</span><span class="student-lead">Team Lead</span></div>
+                <div class="form-row">
+                  <input type="text" name="s1_name" placeholder="Student Name *" required />
+                  <input type="text" name="s1_year" placeholder="Year (II / III) *" required />
+                </div>
+                <div class="form-row">
+                  <input type="text" name="s1_dept" placeholder="Department *" required />
+                  <input type="text" name="s1_regno" placeholder="Register Number *" required />
+                </div>
+              </div>
+
+              <!-- Student 2 -->
+              <div class="student-entry">
+                <div class="student-head"><span class="student-badge">Student 2</span></div>
+                <div class="form-row">
+                  <input type="text" name="s2_name" placeholder="Student Name *" required />
+                  <input type="text" name="s2_year" placeholder="Year (II / III) *" required />
+                </div>
+                <div class="form-row">
+                  <input type="text" name="s2_dept" placeholder="Department *" required />
+                  <input type="text" name="s2_regno" placeholder="Register Number *" required />
+                </div>
+              </div>
+
+              <!-- Student 3 (Optional) -->
+              <div class="student-entry student-optional">
+                <div class="student-head"><span class="student-badge">Student 3</span><span class="student-lead">Optional</span></div>
+                <div class="form-row">
+                  <input type="text" name="s3_name" placeholder="Student Name (optional)" />
+                  <input type="text" name="s3_year" placeholder="Year (II / III)" />
+                </div>
+                <div class="form-row">
+                  <input type="text" name="s3_dept" placeholder="Department" />
+                  <input type="text" name="s3_regno" placeholder="Register Number" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Payment Scanner -->
+            <div class="reg-section">
+              <h4 class="reg-section-title">3 · Payment Scanner</h4>
+              <div class="scanner-box">
+                <div class="scanner-placeholder">
+                  <span class="scanner-icon">📱</span>
+                  <p class="scanner-text">Scan to Pay</p>
+                  <p class="scanner-sub">Fee: ₹200 / team</p>
+                  <p class="scanner-note">QR code will be added here.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Payment Screenshot Upload -->
+            <div class="reg-section">
+              <h4 class="reg-section-title">4 · Payment Proof</h4>
+              <div class="upload-dropzone" id="upload-dropzone">
+                <input type="file" id="payment-proof" name="payment-proof" accept="image/*" />
+                <div class="upload-content" id="upload-content">
+                  <span class="upload-icon">☁️</span>
+                  <p class="upload-main">Click to upload payment screenshot</p>
+                  <p class="upload-sub">PNG, JPG up to 5MB</p>
+                </div>
+                <div class="upload-preview" id="upload-preview" hidden>
+                  <img id="preview-img" alt="Payment screenshot preview" />
+                  <button type="button" class="upload-remove" id="upload-remove" aria-label="Remove image">✕</button>
+                </div>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">Submit Registration</button>
+            <p class="form-note" id="form-note"></p>
+          </form>
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="reg-info-col">
+<div class="contact-info">
+            <h3>Contact Us</h3>
+            <p class="contact-line">👨‍🎓 <strong>Student Coordinators</strong></p>
+            <p class="contact-line">Padmanathan L — III IT</p>
+            <p class="contact-line">📞 <a href="tel:+919025870231">90258 70231</a></p>
+            <p class="contact-line">Priyan P — III IT</p>
+            <p class="contact-line">📞 <a href="tel:+9187865754343">87865 754343</a></p>
+            <p class="contact-line">👩‍🏫 <strong>Staff Coordinators</strong></p>
+            <p class="contact-line">Rithika P — AP / IT &amp; AIDS</p>
+            <p class="contact-line">📞 <a href="tel:+9167687557">67687 557</a></p>
+            <p class="contact-line">Sanjiv Gandhi H — AP / IT &amp; AIDS</p>
+            <p class="contact-line">📞 <a href="tel:+9167687557">67687 557</a></p>
+          </div>
+          <div class="eligibility-box" style="margin-top:24px;">
+            <h3>Entry Snapshot</h3>
+            <ul>
+              <li><span class="why-check">✓</span> 2 – 3 Students per team</li>
+              <li><span class="why-check">✓</span> II & III Year Students</li>
+              <li><span class="why-check">✓</span> ₹200 per team</li>
+              <li><span class="why-check">✓</span> ~40 Teams max</li>
+            </ul>
+          </div>
+          <div class="socials">
+            <a href="#" class="social-btn" aria-label="Twitter">𝕏</a>
+            <a href="#" class="social-btn" aria-label="LinkedIn">in</a>
+            <a href="#" class="social-btn" aria-label="GitHub">gh</a>
+            <a href="#" class="social-btn" aria-label="Instagram">ig</a>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <span class="logo-icon">◈</span>
+        <span class="logo-text">AI&nbsp;Odyssey</span>
+        <p>From Prompt to Product. Building the future, one idea at a time.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Event</h4>
+        <a href="index.html#about">About</a>
+        <a href="index.html#rounds">Rounds</a>
+        <a href="index.html#outcomes">Outcomes</a>
+        <a href="index.html#judging">Judging</a>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <a href="index.html#entry">Entry</a>
+        <a href="index.html#faq">FAQ</a>
+        <a href="index.html#schedule">Schedule</a>
+        <a href="register.html">Register</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Code of Conduct</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 AI Odyssey. All rights reserved. Crafted with 💙 for builders.</p>
+    </div>
+  </footer>
+
+  <script src="js/effects.js"></script>
+  <script src="js/register.js"></script>
+</body>
+</html>

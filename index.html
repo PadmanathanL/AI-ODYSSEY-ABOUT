@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Odyssey 2026 — From Prompt to Product</title>
+  <meta name="description" content="AI Odyssey 2026 — An AI Workflow Championship. Think Smarter. Build Faster. Innovate Together." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+</head>
+<body>
+
+  <!-- ===== SCROLL PROGRESS ===== -->
+  <div class="scroll-progress" id="scroll-progress"></div>
+
+  <!-- ===== LOADING SCREEN ===== -->
+  <div id="loading-screen" class="loading-screen">
+    <canvas id="loader-canvas" class="loader-canvas"></canvas>
+    <div class="loader-rings">
+      <span class="loader-ring ring-1"></span>
+      <span class="loader-ring ring-2"></span>
+      <div class="loader-logo-core">
+        <span class="loader-icon">◈</span>
+      </div>
+    </div>
+    <div class="loader-logo">
+      <span class="loader-text">AI Odyssey</span>
+    </div>
+    <div class="loader-bar">
+      <div class="loader-progress" id="loader-progress"></div>
+    </div>
+    <p class="loader-pct" id="loader-pct">0%</p>
+    <p class="loader-sub"><span class="loader-type" id="loader-type"></span><span class="loader-cursor">|</span></p>
+  </div>
+
+  <!-- ===== CUSTOM CURSOR ===== -->
+  <div class="cursor-dot" id="cursor-dot"></div>
+  <div class="cursor-ring" id="cursor-ring"></div>
+
+  <!-- ===== BACKGROUND EFFECTS ===== -->
+  <div class="bg-effects">
+    <canvas id="grid-canvas" class="grid-canvas"></canvas>
+    <canvas id="neural-canvas" class="neural-canvas"></canvas>
+    <canvas id="particles-canvas" class="particles-canvas"></canvas>
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="glow-orb glow-orb-3"></div>
+    <div class="mouse-glow" id="mouse-glow"></div>
+  </div>
+
+  <!-- ===== NAVIGATION ===== -->
+  <header class="navbar" id="navbar">
+    <nav class="nav-container">
+      <a href="#home" class="logo">
+        <span class="logo-icon">◈</span>
+        <span class="logo-text">AI&nbsp;Odyssey</span>
+      </a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#home" class="nav-link active">Home</a></li>
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#rounds" class="nav-link">Rounds</a></li>
+        <li><a href="#outcomes" class="nav-link">Outcomes</a></li>
+        <li><a href="#entry" class="nav-link">Entry</a></li>
+        <li><a href="#judging" class="nav-link">Judging</a></li>
+        <li><a href="#schedule" class="nav-link">Schedule</a></li>
+        <li><a href="#faq" class="nav-link">FAQ</a></li>
+      </ul>
+<div class="nav-actions">
+        <a href="register.html" class="btn btn-primary btn-sm nav-register">Register</a>
+        <button class="hamburger" id="hamburger" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ===== MOBILE NAVIGATION ===== -->
+  <div class="mobile-menu" id="mobile-menu">
+    <ul class="mobile-links">
+      <li><a href="#home" class="mobile-link">Home</a></li>
+      <li><a href="#about" class="mobile-link">About</a></li>
+      <li><a href="#rounds" class="mobile-link">Rounds</a></li>
+      <li><a href="#outcomes" class="mobile-link">Outcomes</a></li>
+      <li><a href="#entry" class="mobile-link">Entry</a></li>
+      <li><a href="#judging" class="mobile-link">Judging</a></li>
+      <li><a href="#schedule" class="mobile-link">Schedule</a></li>
+<li><a href="#faq" class="mobile-link">FAQ</a></li>
+      <li><a href="register.html" class="mobile-link">Register</a></li>
+    </ul>
+  </div>
+
+  <!-- ===== HERO ===== -->
+  <section id="home" class="hero">
+    <div class="hero-bg">
+      <video class="hero-video" id="hero-video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
+        <source src="https://cdn.pixabay.com/video/2020/06/14/41577-435278327_large.mp4" type="video/mp4" />
+        <source src="https://assets.mixkit.co/videos/preview/mixkit-digital-animation-of-a-network-grid-43894-large.mp4" type="video/mp4" />
+      </video>
+      <div class="hero-video-overlay"></div>
+      <div class="hero-grid"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-present reveal">
+        <div class="present-inner">
+          <span class="present-spark">✦</span>
+          <span class="present-line"></span>
+          <span class="present-brand">
+            <span class="present-name">Technitix</span>
+            <span class="present-label">Proudly Presents</span>
+          </span>
+          <span class="present-line"></span>
+          <span class="present-spark">✦</span>
+        </div>
+      </div>
+      <h1 class="hero-title reveal">
+        <span class="title-line">AI</span>
+        <span class="title-line gradient-text">ODYSSEY</span>
+      </h1>
+      <p class="hero-tagline reveal">From Prompt to Product</p>
+      <p class="hero-motto reveal">Think Smarter. Build Faster. Innovate Together.</p>
+      <div class="hero-countdown reveal" id="countdown">
+        <div class="cd-box"><span class="cd-num" id="cd-days">00</span><span class="cd-label">Days</span></div>
+        <div class="cd-sep">:</div>
+        <div class="cd-box"><span class="cd-num" id="cd-hours">00</span><span class="cd-label">Hours</span></div>
+        <div class="cd-sep">:</div>
+        <div class="cd-box"><span class="cd-num" id="cd-mins">10</span><span class="cd-label">Minutes</span></div>
+        <div class="cd-sep">:</div>
+        <div class="cd-box"><span class="cd-num" id="cd-secs">00</span><span class="cd-label">Seconds</span></div>
+      </div>
+<div class="hero-meta reveal">
+        <span class="meta-item">📅 12 September 2026</span>
+        <span class="meta-item">⏰ 9:00 AM</span>
+      </div>
+      <div class="hero-cta reveal">
+<a href="register.html" class="btn btn-primary btn-lg">Register Now</a>
+        <a href="#about" class="btn btn-outline btn-lg">Learn More</a>
+      </div>
+    </div>
+<div class="hero-floating">
+      <span class="float-orb orb-1">✦</span>
+      <span class="float-orb orb-2">◈</span>
+      <span class="float-orb orb-3">⚡</span>
+      <span class="float-orb orb-4">●</span>
+      <span class="float-orb orb-5">◆</span>
+      <span class="ai-chip chip-1">🤖 AI</span>
+      <span class="ai-chip chip-2">🧠 Neural</span>
+      <span class="ai-chip chip-3">⚙️ Prompt</span>
+      <span class="ai-chip chip-4">💡 Build</span>
+      <span class="ai-chip chip-5">🚀 Launch</span>
+    </div>
+    <a href="#about" class="scroll-indicator" aria-label="Scroll down">
+      <span class="mouse"><span class="wheel"></span></span>
+      <span class="scroll-text">Scroll</span>
+    </a>
+  </section>
+
+  <!-- ===== MARQUEE TICKER ===== -->
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track">
+      <span class="ticker-item">⚡ Think Smarter</span>
+      <span class="ticker-item">🚀 Build Faster</span>
+      <span class="ticker-item">🤝 Innovate Together</span>
+      <span class="ticker-item">🧠 From Prompt to Product</span>
+      <span class="ticker-item">🏆 4 Challenge Rounds</span>
+      <span class="ticker-item">🎨 AI Image Generation</span>
+      <span class="ticker-item">🐞 Bug Battle</span>
+      <span class="ticker-item">⚡ Motion Rush</span>
+      <span class="ticker-item">🚀 Build Blitz</span>
+      <span class="ticker-item">⚡ Think Smarter</span>
+      <span class="ticker-item">🚀 Build Faster</span>
+      <span class="ticker-item">🤝 Innovate Together</span>
+      <span class="ticker-item">🧠 From Prompt to Product</span>
+      <span class="ticker-item">🏆 4 Challenge Rounds</span>
+      <span class="ticker-item">🎨 AI Image Generation</span>
+      <span class="ticker-item">🐞 Bug Battle</span>
+      <span class="ticker-item">⚡ Motion Rush</span>
+      <span class="ticker-item">🚀 Build Blitz</span>
+    </div>
+  </div>
+
+  <!-- ===== ABOUT / OVERVIEW ===== -->
+  <section id="about" class="section about">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="section-tag">About</span>
+        <h2 class="section-title">Event <span class="gradient-text">Overview</span></h2>
+        <p class="section-sub">Think Smarter. Build Faster. Innovate Together.</p>
+      </div>
+      <div class="about-grid">
+        <div class="about-text reveal">
+          <p>AI Odyssey 2026 is an AI-focused technical competition that helps students learn how to use Artificial Intelligence effectively for solving real-world problems.</p>
+          <p>Through multiple challenge-based rounds, participants develop skills in prompt engineering, AI tool selection, innovation, prototype development, and Human–AI collaboration.</p>
+          <p>The event prepares students for the AI-driven future by promoting creativity, critical thinking, and responsible use of AI.</p>
+        </div>
+        <div class="about-stats reveal">
+          <div class="stat-card"><span class="stat-num" data-count="4">0</span><span class="stat-label">Rounds</span></div>
+          <div class="stat-card"><span class="stat-num" data-count="40">0</span><span class="stat-label">Teams</span></div>
+          <div class="stat-card"><span class="stat-num" data-count="120">0</span><span class="stat-label">Participants</span></div>
+          <div class="stat-card"><span class="stat-num" data-count="100">0</span><span class="stat-label">Total Marks</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== OBJECTIVES ===== -->
+  <section id="objectives" class="section objectives">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="section-tag">Objectives</span>
+        <h2 class="section-title">Event <span class="gradient-text">Objectives</span></h2>
+        <p class="section-sub">The competition aims to:</p>
+      </div>
+      <div class="objectives-grid">
+        <div class="objective-item reveal"><span class="objective-num">01</span><p>Introduce students to the modern AI ecosystem beyond conventional chatbot applications.</p></div>
+        <div class="objective-item reveal"><span class="objective-num">02</span><p>Develop prompt engineering and effective Human–AI communication skills.</p></div>
+        <div class="objective-item reveal"><span class="objective-num">03</span><p>Encourage analytical thinking, creativity, and structured problem-solving.</p></div>
+        <div class="objective-item reveal"><span class="objective-num">04</span><p>Enhance participants' ability to identify and utilize the most suitable AI tools for different scenarios.</p></div>
+        <div class="objective-item reveal"><span class="objective-num">05</span><p>Familiarize students with AI-assisted product development and workflow optimization.</p></div>
+        <div class="objective-item reveal"><span class="objective-num">06</span><p>Promote responsible, ethical, and efficient use of Artificial Intelligence.</p></div>
+        <div class="objective-item reveal"><span class="objective-num">07</span><p>Build confidence in applying AI technologies to solve practical and real-world challenges.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== UNIQUE ===== -->
+  <section id="unique" class="section unique">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="section-tag">Why Unique</span>
+        <h2 class="section-title">What Makes AI Odyssey <span class="gradient-text">Unique?</span></h2>
+      </div>
+      <div class="unique-box reveal">
+        <p>AI Odyssey is more than a coding contest or hackathon—it's an AI Workflow Championship that evaluates participants' ability to think, plan, create, and innovate using Artificial Intelligence. The competition simulates real-world AI workflows, from problem analysis and AI tool selection to prototype development and solution presentation. By combining creativity, strategic thinking, and Human–AI collaboration, AI Odyssey prepares students for AI-driven careers and inspires them to use AI as a collaborative partner for solving real-world challenges.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ROUNDS ===== -->
+  <section id="rounds" class="section rounds">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="section-tag">Rounds</span>
+        <h2 class="section-title">Competition <span class="gradient-text">Structure</span></h2>
+        <p class="section-sub">Four progressive rounds, each representing a critical stage in the AI-assisted innovation process.</p>
+      </div>
+      <div class="rounds-grid">
+
+        <div class="round-card reveal">
+          <div class="round-icon">🔍</div>
+          <span class="round-num">Round 1</span>
+          <h3>Scan & Create</h3>
+          <p>Participants observe a sequence of images displayed for a limited time and must recreate them using AI image-generation tools while following specific constraints and prompt engineering techniques.</p>
+          <div class="round-skills">
+            <span class="skill-tag">Observation</span>
+            <span class="skill-tag">Memory</span>
+            <span class="skill-tag">Creativity</span>
+            <span class="skill-tag">Prompt Engineering</span>
+            <span class="skill-tag">Human–AI Communication</span>
+          </div>
+        </div>
+
+        <div class="round-card reveal">
+          <div class="round-icon">🐞</div>
+          <span class="round-num">Round 2</span>
+          <h3>Bug Battle</h3>
+          <p>Participants access a web-based challenge portal containing buggy applications with functional, logical, and syntax errors, and must use approved AI tools to identify, debug, optimize, and successfully execute the applications.</p>
+          <div class="round-skills">
+            <span class="skill-tag">Competitive Problem-Solving</span>
+            <span class="skill-tag">Logical Thinking</span>
+            <span class="skill-tag">Debugging</span>
+            <span class="skill-tag">AI-Assisted Development</span>
+          </div>
+        </div>
+
+        <div class="round-card reveal">
+          <div class="round-icon">⚡</div>
+          <span class="round-num">Round 3</span>
+          <h3>Motion Rush</h3>
+          <p>Participants are presented with animated UI components or motion effects and must accurately recreate them using HTML, CSS, JavaScript, and AI-assisted coding tools within the allotted time.</p>
+          <div class="round-skills">
+            <span class="skill-tag">Front-End Development</span>
+            <span class="skill-tag">Animation Design</span>
+            <span class="skill-tag">Prompt Engineering</span>
+            <span class="skill-tag">Code Generation</span>
+          </div>
+        </div>
+
+        <div class="round-card reveal">
+          <div class="round-icon">🚀</div>
+          <span class="round-num">Round 4</span>
+          <h3>Build Blitz</h3>
+          <p>Teams receive a real-world problem statement and must use AI-assisted development platforms to design, develop, and present a fully functional web application within the given time.</p>
+          <div class="round-skills">
+            <span class="skill-tag">App Functionality</span>
+            <span class="skill-tag">UI/UX Design</span>
+            <span class="skill-tag">AI Tool Utilization</span>
+            <span class="skill-tag">Innovation</span>
+            <span class="skill-tag">Workflow Management</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== LEARNING OUTCOMES ===== -->
+  <section id="outcomes" class="section outcomes">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="section-tag">Outcomes</span>
+        <h2 class="section-title">Learning <span class="gradient-text">Outcomes</span></h2>
+        <p class="section-sub">What you'll walk away with after AI Odyssey 2026.</p>
+      </div>
+      <div class="outcomes-grid">
+        <div class="outcome-item reveal"><span class="outcome-check">✓</span><p>Understand effective prompt engineering techniques.</p></div>
+        <div class="outcome-item reveal"><span class="outcome-check">✓</span><p>Explore a diverse ecosystem of AI tools and platforms.</p></div>
+        <div class="outcome-item reveal"><span class="outcome-check">✓</span><p>Improve critical thinking and structured problem-solving abilities.</p></div>
+        <div class="outcome-item reveal"><span class="outcome-check">✓</span><p>Develop confidence in AI-assisted product development.</p></div>
+        <div class="outcome-item reveal"><span class="outcome-check">✓</span><p>Learn to select appropriate AI solutions based on project requirements.</p></div>
+        <div class="outcome-item reveal"><span class="outcome-check">✓</span><p>Strengthen creativity, communication, and presentation skills.</p></div>
+        <div class="outcome-item reveal"><span class="outcome-check">✓</span><p>Experience collaborative Human–AI workflows similar to those used in industry.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ENTRY DETAILS ===== -->
+  <section id="entry" class="section entry">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="section-tag">Entry</span>
+        <h2 class="section-title">Team & <span class="gradient-text">Entry Details</span></h2>
+        <p class="section-sub">Everything you need to know before you register.</p>
+</div>
+      <div class="entry-grid">
+        <div class="entry-card reveal"><span class="entry-icon">👥</span><span class="entry-label">Team Size</span><span class="entry-value">2 – 3 Students</span></div>
+        <div class="entry-card reveal"><span class="entry-icon">🎓</span><span class="entry-label">Open To</span><span class="entry-value">II & III Year</span></div>
+        <div class="entry-card reveal"><span class="entry-icon">🏆</span><span class="entry-label">Max Teams</span><span class="entry-value">~40</span></div>
+        <div class="entry-card reveal"><span class="entry-icon">🧑‍🤝‍🧑</span><span class="entry-label">Max Participants</span><span class="entry-value">~120</span></div>
+        <div class="entry-card reveal"><span class="entry-icon">💰</span><span class="entry-label">Registration Fee</span><span class="entry-value">₹200 / team</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== JUDGING ===== -->
+  <section id="judging" class="section judging">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="section-tag">Judging</span>
+        <h2 class="section-title">Judging <span class="gradient-text">Criteria</span></h2>
+        <p class="section-sub">A total of 100 marks across five key dimensions.</p>
+      </div>
+      <div class="judging-grid">
+        <div class="judge-card reveal"><div class="judge-bar-wrap"><div class="judge-bar" style="--w:20%"></div></div><span class="judge-name">Creativity</span><span class="judge-marks">20</span><span class="judge-total">/100</span></div>
+        <div class="judge-card reveal"><div class="judge-bar-wrap"><div class="judge-bar" style="--w:20%"></div></div><span class="judge-name">Prompt Engineering</span><span class="judge-marks">20</span><span class="judge-total">/100</span></div>
+        <div class="judge-card reveal"><div class="judge-bar-wrap"><div class="judge-bar" style="--w:20%"></div></div><span class="judge-name">AI Tool Utilization</span><span class="judge-marks">20</span><span class="judge-total">/100</span></div>
+        <div class="judge-card reveal"><div class="judge-bar-wrap"><div class="judge-bar" style="--w:20%"></div></div><span class="judge-name">Prototype Quality</span><span class="judge-marks">20</span><span class="judge-total">/100</span></div>
+        <div class="judge-card reveal"><div class="judge-bar-wrap"><div class="judge-bar" style="--w:20%"></div></div><span class="judge-name">Presentation</span><span class="judge-marks">20</span><span class="judge-total">/100</span></div>
+        <div class="judge-total-card reveal"><span class="judge-total-label">Total</span><span class="judge-total-value">100</span><span class="judge-total-unit">Marks</span></div>
+      </div>
+    </div>
+  </section>
+
+<!-- ===== SCHEDULE ===== -->
+  <section id="schedule" class="section schedule">
+    <div class="container">
+<div class="section-head reveal">
+        <span class="section-tag">Mission Timeline</span>
+        <h2 class="section-title">The <span class="gradient-text">Neural</span> Route</h2>
+<p class="section-sub">Drag the rocket along the route, click the path to fly, or tap a stop to jump there.</p>
+      </div>
+
+      <div class="journey reveal">
+        <div class="journey-stage">
+          <div class="journey-info" id="journey-info">
+            <span class="journey-stop-num" id="journey-stop-num">NODE 1</span>
+            <span class="journey-stop-time" id="journey-stop-time">9.00 – 9.45 AM</span>
+            <h3 class="journey-stop-title" id="journey-stop-title">Inauguration</h3>
+          </div>
+
+          <svg class="journey-svg" viewBox="0 0 1000 620" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="journeyGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#6d5bff" />
+                <stop offset="50%" stop-color="#00d4ff" />
+                <stop offset="100%" stop-color="#ff6ec7" />
+              </linearGradient>
+              <radialGradient id="nodeHalo" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.9" />
+                <stop offset="100%" stop-color="#6d5bff" stop-opacity="0" />
+              </radialGradient>
+              <filter id="pathGlow" x="-20%" y="-20%" width="140%" height="140%">
+                <feGaussianBlur stdDeviation="8" result="blur" />
+                <feMerge>
+                  <feMergeNode in="blur" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+            </defs>
+            <path class="journey-path-glow"
+                  d="M 70 520 C 180 520 210 300 330 300 C 450 300 480 540 600 540 C 720 540 750 200 900 200"
+                  fill="none" />
+            <path class="journey-path-grid"
+                  d="M 70 520 C 180 520 210 300 330 300 C 450 300 480 540 600 540 C 720 540 750 200 900 200"
+                  fill="none" />
+            <path class="journey-path-full"
+                  d="M 70 520 C 180 520 210 300 330 300 C 450 300 480 540 600 540 C 720 540 750 200 900 200"
+                  fill="none" />
+            <path id="journey-path-progress" class="journey-path-progress"
+                  d="M 70 520 C 180 520 210 300 330 300 C 450 300 480 540 600 540 C 720 540 750 200 900 200"
+                  fill="none" />
+          </svg>
+
+          <div class="circuit-stars">
+            <span class="cstar" style="left:8%;top:22%;--d:0s"></span>
+            <span class="cstar" style="left:22%;top:68%;--d:.6s"></span>
+            <span class="cstar" style="left:38%;top:30%;--d:1.2s"></span>
+            <span class="cstar" style="left:55%;top:74%;--d:.3s"></span>
+            <span class="cstar" style="left:70%;top:26%;--d:.9s"></span>
+            <span class="cstar" style="left:86%;top:60%;--d:1.5s"></span>
+            <span class="cstar" style="left:95%;top:18%;--d:.4s"></span>
+          </div>
+
+<div class="journey-marker" id="journey-marker">🚀<span class="comet-core"></span><span class="comet-trail"></span></div>
+<div class="journey-nodes" id="journey-nodes"><!-- injected by JS --></div>
+          <div class="journey-popup" id="journey-popup"><!-- injected by JS --></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- ===== COORDINATORS ===== -->
+  <section id="coordinators" class="section coordinators">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="section-tag">Command Chain</span>
+        <h2 class="section-title">Leadership <span class="gradient-text">Hierarchy</span></h2>
+        <p class="section-sub">The visionary minds powering AI Odyssey. Hover a portrait to reveal their guiding quote.</p>
+      </div>
+
+      <div class="rank-hierarchy reveal">
+
+        <!-- Connecting trunk lines (SVG) -->
+<svg class="rank-lines" viewBox="0 0 1000 1220" preserveAspectRatio="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="rankGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#6d5bff" />
+              <stop offset="50%" stop-color="#00d4ff" />
+              <stop offset="100%" stop-color="#ff6ec7" />
+            </linearGradient>
+          </defs>
+<g class="rank-draw">
+            <!-- NETWORK: HOD (Level 1, center) fans out to both mentors (Level 2) -->
+            <path d="M500 173 C 500 373 345 373 345 573" />
+            <path d="M500 173 C 500 373 655 373 655 573" />
+            <!-- NETWORK: each mentor (Level 2) connects to both cadets (Level 3) -->
+            <path d="M345 573 C 345 773 345 773 345 973" />
+            <path d="M345 573 C 345 773 655 773 655 973" />
+            <path d="M655 573 C 655 773 345 773 345 973" />
+            <path d="M655 573 C 655 773 655 773 655 973" />
+          </g>
+          <g class="rank-nodes">
+            <circle cx="500" cy="173" r="7" />
+            <circle cx="345" cy="573" r="6" />
+            <circle cx="655" cy="573" r="6" />
+            <circle cx="345" cy="973" r="6" />
+            <circle cx="655" cy="973" r="6" />
+          </g>
+        </svg>
+
+        <!-- LEVEL 1 — The Visionary (HOD) -->
+        <div class="rank-level rank-level-1">
+          <div class="hierarchy-card hierarchy-hod">
+            <span class="rank-badge badge-1">Visionary</span>
+            <div class="polaroid" data-initials="K">
+              <div class="polaroid-photo photo-front">
+<span class="photo-initials">K</span>
+                <img src="kumaravel.jpg" data-src="kumaravel.jpg" class="loaded" alt="Head of the Department" />
+              </div>
+              <div class="polaroid-quote photo-back">
+                <span class="quote-mark">"</span>
+                <p>Dedicated to nurturing future innovators through mentorship, technical expertise, and research-driven learning.</p>
+                <span class="quote-mark">"</span>
+              </div>
+            </div>
+            <div class="polaroid-caption">
+              <span class="rank-stars">★★★</span>
+              <span class="rank-name">Mr. Kumaravel S</span>
+              <span class="rank-role">Head of the Department</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- LEVEL 2 — Master Mentors -->
+        <div class="rank-level rank-level-2">
+          <div class="hierarchy-card">
+            <span class="rank-badge badge-2">Master Mentor</span>
+            <div class="polaroid" data-initials="R">
+              <div class="polaroid-photo photo-front">
+                <span class="photo-initials">R</span>
+                <img src="#" data-src="images/rithika.jpg" alt="Assistant Professor IT & AIDS" loading="lazy" />
+              </div>
+              <div class="polaroid-quote photo-back">
+                <span class="quote-mark">"</span>
+                <p>Guiding students to blend creativity with technology and turn bold ideas into working solutions.</p>
+                <span class="quote-mark">"</span>
+              </div>
+            </div>
+            <div class="polaroid-caption">
+              <span class="rank-stars">★★</span>
+              <span class="rank-name">Ms. Rithika P</span>
+              <span class="rank-role">Assistant Professor</span>
+            </div>
+          </div>
+
+          <div class="hierarchy-card">
+            <span class="rank-badge badge-2">Master Mentor</span>
+            <div class="polaroid" data-initials="S">
+              <div class="polaroid-photo photo-front">
+                <span class="photo-initials">S</span>
+                <img src="#" data-src="images/sanjiv.jpg" alt="Assistant Professor IT & AIDS" loading="lazy" />
+              </div>
+              <div class="polaroid-quote photo-back">
+                <span class="quote-mark">"</span>
+                <p>Empowering the next generation to think critically, build boldly, and innovate fearlessly.</p>
+                <span class="quote-mark">"</span>
+              </div>
+            </div>
+            <div class="polaroid-caption">
+              <span class="rank-stars">★★</span>
+              <span class="rank-name">Mr. Sanjiv Gandhi H</span>
+              <span class="rank-role">Assistant Professor</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- LEVEL 3 — Student Cadets -->
+        <div class="rank-level rank-level-3">
+          <div class="hierarchy-card">
+            <span class="rank-badge badge-3">Cadet</span>
+            <div class="polaroid" data-initials="P">
+              <div class="polaroid-photo photo-front">
+                <span class="photo-initials">P</span>
+                <img src="#" data-src="images/padmanathan.jpg" alt="Student Coordinator" loading="lazy" />
+              </div>
+              <div class="polaroid-quote photo-back">
+                <span class="quote-mark">"</span>
+                <p>Rising innovators shaping tomorrow's possibilities, one line of code at a time.</p>
+                <span class="quote-mark">"</span>
+              </div>
+            </div>
+            <div class="polaroid-caption">
+              <span class="rank-stars">★</span>
+              <span class="rank-name">Padmanathan L</span>
+              <span class="rank-role">EVENT COORDINATOR III IT</span>
+            </div>
+          </div>
+
+          <div class="hierarchy-card">
+            <span class="rank-badge badge-3">Cadet</span>
+            <div class="polaroid" data-initials="P">
+              <div class="polaroid-photo photo-front">
+                <span class="photo-initials">P</span>
+                <img src="#" data-src="images/priyan.jpg" alt="Student Coordinator" loading="lazy" />
+              </div>
+              <div class="polaroid-quote photo-back">
+                <span class="quote-mark">"</span>
+                <p>Driven by curiosity, fueled by ambition, and ready to build the future with AI.</p>
+                <span class="quote-mark">"</span>
+              </div>
+            </div>
+            <div class="polaroid-caption">
+              <span class="rank-stars">★</span>
+              <span class="rank-name">Priyan P</span>
+              <span class="rank-role">EVENT COORDINATOR III IT</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+<!-- ===== REGISTER CTA (above FAQ) ===== -->
+  <section id="register-cta" class="section register-cta">
+    <div class="container">
+      <div class="register-cta-box reveal">
+        <span class="section-tag">Ready When You Are</span>
+        <h2 class="section-title">Don't Miss Your <span class="gradient-text">Spot</span></h2>
+        <p class="register-cta-sub">Registration is open to ~40 teams. Secure your place in the AI Workflow Championship today.</p>
+        <a href="register.html" class="btn btn-primary btn-lg">Register Now</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FAQ ===== -->
+  <section id="faq" class="section faq">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="section-tag">FAQ</span>
+        <h2 class="section-title">Frequently Asked <span class="gradient-text">Questions</span></h2>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-question"><span>What is AI Odyssey?</span><span class="faq-icon">+</span></button>
+          <div class="faq-answer"><p>AI Odyssey 2026 is an AI-focused technical competition that helps students learn how to use Artificial Intelligence effectively for solving real-world problems through multiple challenge-based rounds.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question"><span>Who can participate?</span><span class="faq-icon">+</span></button>
+          <div class="faq-answer"><p>B.E / B.Tech students from the CSE domain are eligible. Students from other interested departments can also participate (optional).</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question"><span>How large can a team be?</span><span class="faq-icon">+</span></button>
+          <div class="faq-answer"><p>Each team must have 2–3 students. The event is open to II and III year students.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question"><span>What is the registration fee?</span><span class="faq-icon">+</span></button>
+          <div class="faq-answer"><p>The registration fee is ₹200 per team. Maximum of ~30 teams (~90 students) can participate.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question"><span>Is software installation required?</span><span class="faq-icon">+</span></button>
+          <div class="faq-answer"><p>No. No software installation is mandatory if browser-based AI tools are accessible. All tools used are browser-based.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question"><span>What AI tools will be used?</span><span class="faq-icon">+</span></button>
+          <div class="faq-answer"><p>ChatGPT, Gemini, Claude, Canva AI, Gamma AI, Lovable, and optionally Cursor AI and GitHub Copilot.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question"><span>How are participants judged?</span><span class="faq-icon">+</span></button>
+          <div class="faq-answer"><p>Total of 100 marks: Creativity (20), Prompt Engineering (20), AI Tool Utilization (20), Prototype Quality (20), and Presentation (20).</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question"><span>What is the event format?</span><span class="faq-icon">+</span></button>
+          <div class="faq-answer"><p>It is a one-day event with 4 progressive rounds: Scan & Create, Bug Battle, Motion Rush, and Build Blitz.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- ===== CONTACT ===== -->
+  <section id="contact" class="section contact">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="section-tag">Contact</span>
+        <h2 class="section-title">Get in <span class="gradient-text">Touch</span></h2>
+        <p class="section-sub">Reach out to our coordinators for any queries.</p>
+      </div>
+      <div class="contact-grid reveal">
+        <div class="contact-info">
+          <h3>Contact Us</h3>
+          <p class="contact-line">👨‍🎓 <strong>Student Coordinators</strong></p>
+          <p class="contact-line">Padmanathan L — III IT</p>
+          <p class="contact-line">📞 <a href="tel:+919025870231">90258 70231</a></p>
+          <p class="contact-line">Priyan P — III IT</p>
+          <p class="contact-line">📞 <a href="tel:+9187865754343">87865 754343</a></p>
+          <p class="contact-line">👩‍🏫 <strong>Staff Coordinators</strong></p>
+          <p class="contact-line">Rithika P — AP / IT &amp; AIDS</p>
+          <p class="contact-line">📞 <a href="tel:+9167687557">67687 557</a></p>
+          <p class="contact-line">Sanjiv Gandhi H — AP / IT &amp; AIDS</p>
+          <p class="contact-line">📞 <a href="tel:+9167687557">67687 557</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <span class="logo-icon">◈</span>
+        <span class="logo-text">AI&nbsp;Odyssey</span>
+        <p>From Prompt to Product. Building the future, one idea at a time.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Event</h4>
+        <a href="#about">About</a>
+        <a href="#rounds">Rounds</a>
+        <a href="#outcomes">Outcomes</a>
+        <a href="#judging">Judging</a>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <a href="#entry">Entry</a>
+        <a href="#faq">FAQ</a>
+<a href="#schedule">Schedule</a>
+        <a href="register.html">Register</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Code of Conduct</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 AI Odyssey. All rights reserved. Crafted with 💙 for builders.</p>
+    </div>
+  </footer>
+
+  <!-- ===== SCROLL TO TOP ===== -->
+  <button class="scroll-top" id="scroll-top" aria-label="Scroll to top">↑</button>
+
+  <script src="js/effects.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+</content>
