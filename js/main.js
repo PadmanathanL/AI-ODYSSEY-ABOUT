@@ -100,6 +100,36 @@ function initLoading() {
   }
 
   /* ============================================================
+     HERO PARALLAX
+     ============================================================ */
+  function initHeroParallax() {
+    const hero = document.querySelector('.hero');
+    const bg = document.querySelector('.hero-bg');
+    const floating = document.querySelector('.hero-floating');
+    if (!hero || !bg || !floating) return;
+
+    function update() {
+      const scrollY = window.scrollY;
+      const heroH = hero.offsetHeight;
+      if (scrollY <= heroH) {
+        bg.style.transform = 'translateY(' + (scrollY * 0.4) + 'px)';
+        floating.style.transform = 'translateY(' + (scrollY * 0.18) + 'px)';
+      }
+    }
+
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          update();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+  }
+
+  /* ============================================================
      HERO TAGLINE TYPEWRITER
      ============================================================ */
   function initTagline() {
@@ -269,7 +299,7 @@ const cards = document.querySelectorAll('.round-card, .judge-card, .entry-card, 
      COUNTDOWN TIMER
      ============================================================ */
   function initCountdown() {
-const target = new Date('2026-09-12T09:00:00+05:30').getTime();
+const target = new Date('2026-08-29T09:00:00+05:30').getTime();
     const daysEl = document.getElementById('cd-days');
     const hoursEl = document.getElementById('cd-hours');
     const minsEl = document.getElementById('cd-mins');
@@ -381,237 +411,7 @@ const target = new Date('2026-09-12T09:00:00+05:30').getTime();
     bars.forEach((el) => observer.observe(el));
   }
 
-/* ============================================================
-     JOURNEY MAP (Interactive Schedule)
-     ============================================================ */
-  function initJourney() {
-const stage = document.querySelector('.journey-stage');
-    const nodesWrap = document.getElementById('journey-nodes');
-    const popup = document.getElementById('journey-popup');
-    const marker = document.getElementById('journey-marker');
-    const progressPath = document.getElementById('journey-path-progress');
-    const infoCard = document.getElementById('journey-info');
-    const stopNum = document.getElementById('journey-stop-num');
-    const stopTime = document.getElementById('journey-stop-time');
-    const stopTitle = document.getElementById('journey-stop-title');
-if (!stage || !nodesWrap || !popup || !marker || !progressPath || !infoCard) return;
-
-const destinations = [
-      { num: 'NODE 1', time: '9.00 – 9.45 AM', title: 'Inauguration', desc: 'Opening ceremony and welcome address.' },
-      { num: 'NODE 2', time: '9.45 – 10.00 AM', title: 'Break Time', desc: 'Short break before the competition begins.' },
-      { num: 'NODE 3', time: '10.00 – 10.45 AM', title: 'Round 1 · Scan & Create', desc: 'AI image generation challenge.' },
-      { num: 'NODE 4', time: '10.45 AM – 12.00 PM', title: 'Round 2 · Bug Battle', desc: 'Debugging challenge with live leaderboard.' },
-      { num: 'NODE 5', time: '12.00 – 12.45 PM', title: 'Lunch', desc: 'Break for lunch and networking.' },
-      { num: 'NODE 6', time: '1.00 – 2.00 PM', title: 'Round 3 · Motion Rush', desc: 'Animated UI recreation challenge.' },
-      { num: 'NODE 7', time: '2.00 – 3.45 PM', title: 'Round 4 · Build Blitz', desc: 'Build a fully functional web application.' },
-      { num: 'NODE 8', time: '4.00 – 4.30 PM', title: 'Prize Distribution', desc: 'Awards and closing ceremony.' }
-    ];
-
-    const total = destinations.length;
-    const pathLength = progressPath.getTotalLength() || 2000;
-
-    // Map SVG viewBox coords (1000 x 620) to the stage's actual pixels.
-    function scaleX(v) { return (v / 1000) * stage.clientWidth; }
-    function scaleY(v) { return (v / 620) * stage.clientHeight; }
-
-    // Sample a point on the path at normalized distance t (0..1).
-    function pathPoint(t) {
-      const pt = progressPath.getPointAtLength(Math.max(0, Math.min(1, t)) * pathLength);
-      return { x: scaleX(pt.x), y: scaleY(pt.y) };
-    }
-
-    // Pre-compute node positions evenly along the path so they sit exactly on it.
-    const positions = destinations.map((_, i) => pathPoint(i / (total - 1)));
-
-    // Build nodes
-    const nodes = [];
-    destinations.forEach((d, i) => {
-      const node = document.createElement('div');
-      node.className = 'journey-node';
-      node.dataset.index = i;
-      node.style.left = positions[i].x + 'px';
-      node.style.top = positions[i].y + 'px';
-      node.innerHTML = '<div class="node-dot">' + (i + 1) + '</div><div class="node-label">' + d.title + '</div>';
-node.addEventListener('click', () => { animateTo(i); showPopup(i); });
-      node.addEventListener('mouseenter', () => showPopup(i));
-      node.addEventListener('mouseleave', hidePopup);
-      nodesWrap.appendChild(node);
-      nodes.push(node);
-    });
-
-    // Popup helpers
-    function showPopup(i) {
-      const d = destinations[i];
-      popup.innerHTML = '<div class="popup-arrow"></div><div class="popup-num">' + d.num +
-        ' · ' + d.time + '</div><div class="popup-title">' + d.title +
-        '</div><div class="popup-desc">' + d.desc + '</div>';
-      popup.classList.add('show');
-      const px = positions[i].x;
-      const py = positions[i].y;
-      popup.style.left = px + 'px';
-      popup.style.top = Math.max(24, py - popup.offsetHeight - 12) + 'px';
-      popup.style.transform = 'translateX(-50%)';
-    }
-    function hidePopup() { popup.classList.remove('show'); }
-
-// Set state (marker, progress, labels, node classes) for a given index.
-    function setState(i) {
-      i = Math.max(0, Math.min(total - 1, i));
-      currentIndex = i;
-      const t = i / (total - 1);
-      marker.style.left = positions[i].x + 'px';
-      marker.style.top = positions[i].y + 'px';
-progressPath.style.strokeDashoffset = pathLength - (pathLength * t);
-      stopNum.textContent = destinations[i].num + ' · ' + (i + 1) + ' / ' + total;
-      stopTime.textContent = destinations[i].time;
-      stopTitle.textContent = destinations[i].title;
-      nodes.forEach((el, idx) => {
-        el.classList.toggle('reached', idx <= i);
-        el.classList.toggle('current', idx === i);
-      });
-      // Show the info card and popup when the rocket has reached a node.
-      infoCard.classList.add('show');
-      showPopup(i);
-    }
-
-// Smoothly animate the marker from current index to target index along the path.
-    function animateTo(target, dur) {
-      target = Math.max(0, Math.min(total - 1, target));
-      if (target === currentIndex) { setState(target); return; }
-      // Hide the info card and popup while the rocket is travelling between nodes.
-      infoCard.classList.remove('show');
-      hidePopup();
-      const from = currentIndex;
-      const start = performance.now();
-      // Default is quick; pass a large duration for a slow cruise to the destination.
-      const duration = dur || 700;
-      function tick(now) {
-        const p = Math.min((now - start) / duration, 1);
-        const eased = 1 - Math.pow(1 - p, 3);
-        const t = from + (target - from) * eased;
-        const pt = pathPoint(t / (total - 1));
-        marker.style.left = pt.x + 'px';
-        marker.style.top = pt.y + 'px';
-        const prog = t / (total - 1);
-        progressPath.style.strokeDashoffset = pathLength - (pathLength * prog);
-        if (p < 1) requestAnimationFrame(tick);
-        else setState(target);
-      }
-      requestAnimationFrame(tick);
-    }
-
-let currentIndex = 0;
-
-// Initialize
-    setState(0);
-    hidePopup();
-
-    /* ---------- Interactive rocket controls ---------- */
-
-    // Convert a pointer/client event to coordinates relative to the stage.
-    function localPos(e) {
-      const rect = stage.getBoundingClientRect();
-      return { x: e.clientX - rect.left, y: e.clientY - rect.top };
-    }
-
-    // Find the normalized distance t (0..1) of the point on the path nearest to (x, y).
-    const SAMPLE = 600;
-    function nearestT(x, y) {
-      let bestT = 0;
-      let bestD = Infinity;
-      for (let i = 0; i <= SAMPLE; i++) {
-        const t = i / SAMPLE;
-        const pt = progressPath.getPointAtLength(t * pathLength);
-        const dx = pt.x - x;
-        const dy = pt.y - y;
-        const d = dx * dx + dy * dy;
-        if (d < bestD) { bestD = d; bestT = t; }
-      }
-      return bestT;
-    }
-
-    // Nearest stop index for a given normalized distance t.
-    function nearestStop(t) {
-      return Math.round(t * (total - 1));
-    }
-
-    // Immediately place the marker at t (used while dragging) with a live popup.
-    function placeAt(t) {
-      t = Math.max(0, Math.min(1, t));
-      const pt = pathPoint(t);
-      marker.style.left = pt.x + 'px';
-      marker.style.top = pt.y + 'px';
-      progressPath.style.strokeDashoffset = pathLength - (pathLength * t);
-      const idx = nearestStop(t);
-      nodes.forEach((el, i) => {
-        el.classList.toggle('reached', i <= idx);
-        el.classList.toggle('current', i === idx);
-      });
-      showPopup(idx);
-    }
-
-    // 1) DRAG: grab the rocket and pull it along the path.
-    let dragging = false;
-    marker.style.pointerEvents = 'auto';
-    marker.style.cursor = 'grab';
-    marker.addEventListener('pointerdown', (e) => {
-      dragging = true;
-      marker.style.cursor = 'grabbing';
-      if (marker.setPointerCapture) marker.setPointerCapture(e.pointerId);
-      e.preventDefault();
-    });
-    marker.addEventListener('pointermove', (e) => {
-      if (!dragging) return;
-      const p = localPos(e);
-      placeAt(nearestT(p.x, p.y));
-    });
-    function endDrag() {
-      if (!dragging) return;
-      dragging = false;
-      marker.style.cursor = 'grab';
-      const x = parseFloat(marker.style.left);
-      const y = parseFloat(marker.style.top);
-      animateTo(nearestStop(nearestT(x, y)));
-    }
-    marker.addEventListener('pointerup', endDrag);
-    marker.addEventListener('pointercancel', endDrag);
-
-    // 2) CLICK PATH: click anywhere on the route to fly the rocket to that spot.
-    stage.addEventListener('click', (e) => {
-      if (e.target.closest('.journey-node')) return; // nodes handle their own clicks
-      const p = localPos(e);
-      animateTo(nearestStop(nearestT(p.x, p.y)));
-    });
-
-// 3) KEYBOARD: use ArrowLeft / ArrowRight to hop between stops.
-    document.addEventListener('keydown', (e) => {
-      if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
-      const rect = stage.getBoundingClientRect();
-      const inView = rect.bottom > 0 && rect.top < window.innerHeight;
-      if (!inView) return;
-      e.preventDefault();
-      const dir = e.key === 'ArrowRight' ? 1 : -1;
-      animateTo((currentIndex + dir + total) % total);
-    });
-
-// Keep nodes/marker aligned with the stage on resize.
-    let resizeRaf = null;
-    window.addEventListener('resize', () => {
-      if (resizeRaf) return;
-      resizeRaf = requestAnimationFrame(() => {
-        resizeRaf = null;
-        for (let i = 0; i < total; i++) {
-          positions[i] = pathPoint(i / (total - 1));
-          nodes[i].style.left = positions[i].x + 'px';
-          nodes[i].style.top = positions[i].y + 'px';
-        }
-        setState(currentIndex);
-      });
-    });
-
-}
-
-/* ============================================================
+  /* ============================================================
      RANK PHOTO LOADER
      Shows initials placeholder until a real photo is uploaded.
      ============================================================ */
@@ -647,6 +447,223 @@ function initRankPhotos() {
   }
 
   /* ============================================================
+     SMOOTH SCROLL FOR ANCHOR LINKS
+     ============================================================ */
+  function initSmoothScroll() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        const target = document.querySelector(targetId);
+        if (!target) return;
+        const navHeight = document.getElementById('navbar')?.offsetHeight || 72;
+        const targetPos = target.offsetTop - navHeight;
+        window.scrollTo({
+          top: targetPos,
+          behavior: 'smooth'
+        });
+      });
+    });
+  }
+
+  /* ============================================================
+     INTERACTIVE CARD RIPPLE EFFECT
+     ============================================================ */
+  function initRipple() {
+    if (window.matchMedia('(hover: none), (pointer: coarse)').matches) return;
+    document.querySelectorAll('.btn, .round-card, .stat-card, .entry-card, .judge-card').forEach(el => {
+      el.addEventListener('click', function(e) {
+        const rect = this.getBoundingClientRect();
+        const ripple = document.createElement('span');
+        const size = Math.max(rect.width, rect.height);
+        const x = e.clientX - rect.left - size / 2;
+        const y = e.clientY - rect.top - size / 2;
+        ripple.style.cssText = `
+          position: absolute;
+          width: ${size}px;
+          height: ${size}px;
+          left: ${x}px;
+          top: ${y}px;
+          background: rgba(255, 255, 255, 0.3);
+          border-radius: 50%;
+          transform: scale(0);
+          animation: ripple 0.6s ease-out;
+          pointer-events: none;
+        `;
+        this.style.position = 'relative';
+        this.style.overflow = 'hidden';
+        this.appendChild(ripple);
+        setTimeout(() => ripple.remove(), 600);
+      });
+    });
+  }
+
+  /* ============================================================
+     DYNAMIC SECTION OBSERVER
+     ============================================================ */
+  function initDynamicObserver() {
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          // Add stagger animation to children
+          const children = entry.target.querySelectorAll('.reveal, .round-card, .objective-item, .outcome-item');
+          children.forEach((child, index) => {
+            child.style.transitionDelay = `${index * 0.08}s`;
+          });
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('section').forEach(section => {
+      observer.observe(section);
+    });
+  }
+
+  /* ============================================================
+     ENHANCED MOBILE MENU
+     ============================================================ */
+  function initMobileMenu() {
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (!hamburger || !mobileMenu) return;
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
+        hamburger.classList.remove('open');
+        mobileMenu.classList.remove('open');
+      }
+    });
+
+    // Add touch swipe to close
+    let touchStartX = 0;
+    mobileMenu.addEventListener('touchstart', (e) => {
+      touchStartX = e.touches[0].clientX;
+    }, { passive: true });
+
+    mobileMenu.addEventListener('touchend', (e) => {
+      const touchEndX = e.changedTouches[0].clientX;
+      if (touchEndX - touchStartX > 50) {
+        hamburger.classList.remove('open');
+        mobileMenu.classList.remove('open');
+      }
+    });
+  }
+
+  /* ============================================================
+     PERFORMANCE OPTIMIZED SCROLL EFFECTS
+     ============================================================ */
+  function initScrollEffects() {
+    let ticking = false;
+    const elementsToAnimate = document.querySelectorAll('.glow-orb, .float-orb');
+
+    function updateElements() {
+      const scrollY = window.scrollY;
+      elementsToAnimate.forEach((el, index) => {
+        const speed = 0.05 + (index * 0.02);
+        el.style.transform = `translateY(${scrollY * speed}px)`;
+      });
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          updateElements();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+  }
+
+  /* ============================================================
+     LAZY LOADING ENHANCEMENT
+     ============================================================ */
+  function initLazyLoading() {
+    if ('loading' in HTMLImageElement.prototype) {
+      // Native lazy loading supported
+      document.querySelectorAll('img[data-src]').forEach(img => {
+        img.src = img.dataset.src;
+      });
+    } else {
+      // Fallback for browsers without native lazy loading
+      const lazyImages = document.querySelectorAll('img[data-src]');
+      const imageObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const img = entry.target;
+            img.src = img.dataset.src;
+            img.classList.add('loaded');
+            imageObserver.unobserve(img);
+          }
+        });
+      });
+
+      lazyImages.forEach(img => imageObserver.observe(img));
+    }
+  }
+
+  /* ============================================================
+     KEYBOARD NAVIGATION ENHANCEMENT
+     ============================================================ */
+  function initKeyboardNav() {
+    document.addEventListener('keydown', (e) => {
+      // ESC to close mobile menu
+      if (e.key === 'Escape') {
+        const mobileMenu = document.getElementById('mobile-menu');
+        const hamburger = document.getElementById('hamburger');
+        if (mobileMenu?.classList.contains('open')) {
+          hamburger?.classList.remove('open');
+          mobileMenu.classList.remove('open');
+        }
+      }
+
+      // Space to scroll down
+      if (e.key === ' ' && e.target === document.body) {
+        e.preventDefault();
+        window.scrollBy({ top: window.innerHeight * 0.8, behavior: 'smooth' });
+      }
+    });
+  }
+
+  /* ============================================================
+     INTERACTIVE FORM ENHANCEMENTS
+     ============================================================ */
+  function initFormEnhancements() {
+    const inputs = document.querySelectorAll('.contact-form input, .contact-form textarea');
+    inputs.forEach(input => {
+      // Add floating label effect
+      input.addEventListener('focus', () => {
+        input.parentElement?.classList.add('focused');
+      });
+
+      input.addEventListener('blur', () => {
+        if (!input.value) {
+          input.parentElement?.classList.remove('focused');
+        }
+      });
+
+      // Real-time validation feedback
+      input.addEventListener('input', () => {
+        if (input.value.length > 0) {
+          input.style.borderColor = 'var(--primary)';
+        } else {
+          input.style.borderColor = 'var(--border)';
+        }
+      });
+    });
+  }
+
+  /* ============================================================
      CONTACT FORM
      ============================================================ */
   function initForm() {
@@ -671,6 +688,7 @@ function initRankPhotos() {
     initLoading();
     initScrollProgress();
     initHeroVideo();
+    initHeroParallax();
     initTagline();
     initCursor();
     initTheme();
@@ -680,11 +698,18 @@ function initRankPhotos() {
     initReveal();
     initCounters();
     initJudgeBars();
-initJourney();
     initMagnetic();
     initTilt();
-initRankPhotos();
+    initRankPhotos();
     initScrollTop();
     initForm();
+    initSmoothScroll();
+    initRipple();
+    initDynamicObserver();
+    initMobileMenu();
+    initScrollEffects();
+    initLazyLoading();
+    initKeyboardNav();
+    initFormEnhancements();
   });
 })();

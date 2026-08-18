@@ -217,69 +217,6 @@
     animate();
   }
 
-  /* ---------- Neural Network Canvas (background AI effect) ---------- */
-  function initNeuralCanvas() {
-    const canvas = document.getElementById('neural-canvas');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    let width, height;
-    const nodes = [];
-    const NODE_COUNT = 26;
-
-    function resize() {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
-      nodes.length = 0;
-      for (let i = 0; i < NODE_COUNT; i++) {
-        nodes.push({
-          x: Math.random() * width,
-          y: Math.random() * height,
-          vx: (Math.random() - 0.5) * 0.3,
-          vy: (Math.random() - 0.5) * 0.3,
-          r: Math.random() * 2 + 1.5
-        });
-      }
-    }
-    resize();
-    window.addEventListener('resize', resize);
-
-    function draw() {
-      ctx.clearRect(0, 0, width, height);
-      const t = Date.now() / 1000;
-      for (const n of nodes) {
-        n.x += n.vx;
-        n.y += n.vy;
-        if (n.x < 0 || n.x > width) n.vx *= -1;
-        if (n.y < 0 || n.y > height) n.vy *= -1;
-      }
-      for (let i = 0; i < nodes.length; i++) {
-        for (let j = i + 1; j < nodes.length; j++) {
-          const dx = nodes[i].x - nodes[j].x;
-          const dy = nodes[i].y - nodes[j].y;
-          const dist = Math.hypot(dx, dy);
-          if (dist < 150) {
-            const alpha = 0.35 * (1 - dist / 150);
-            ctx.beginPath();
-            ctx.moveTo(nodes[i].x, nodes[i].y);
-            ctx.lineTo(nodes[j].x, nodes[j].y);
-            ctx.strokeStyle = `rgba(109, 91, 255, ${alpha})`;
-            ctx.lineWidth = 1;
-            ctx.stroke();
-          }
-        }
-      }
-      for (const n of nodes) {
-        const pulse = 0.5 + 0.5 * Math.sin(t * 2 + n.r);
-        ctx.beginPath();
-        ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(0, 212, 255, ${0.4 + pulse * 0.5})`;
-        ctx.fill();
-      }
-      requestAnimationFrame(draw);
-    }
-    draw();
-  }
-
   /* ---------- Loader Neural Canvas (loading screen AI effect) ---------- */
   function initLoaderCanvas() {
     const canvas = document.getElementById('loader-canvas');
@@ -346,7 +283,6 @@
   /* ---------- Init ---------- */
   document.addEventListener('DOMContentLoaded', () => {
     initGrid();
-    initNeuralCanvas();
     initParticles();
     initMouseGlow();
     initLoaderCanvas();
