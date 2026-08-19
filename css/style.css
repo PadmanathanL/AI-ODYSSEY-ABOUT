@@ -1268,6 +1268,11 @@ opacity: 0.7;
 .polaroid-photo img.loaded { opacity: 1; }
 .polaroid-photo img.loaded ~ .photo-initials { display: none; }
 
+/* Force leadership images visible */
+.rank-hierarchy .polaroid-photo img {
+  opacity: 1 !important;
+}
+
 /* Quote typography */
 .quote-mark {
   font-family: 'Great Vibes', cursive;
@@ -1320,7 +1325,6 @@ opacity: 0.7;
   .rank-hierarchy {
     --rh-scale: 0.33;
     zoom: var(--rh-scale);
-    transform: scale(var(--rh-scale));
     transform-origin: top center;
   }
   .rank-lines { display: block; }
